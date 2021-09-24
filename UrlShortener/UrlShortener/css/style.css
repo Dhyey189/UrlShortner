@@ -1,0 +1,40 @@
+﻿* {
+    margin: 0;
+}
+
+header {
+    background-color: skyblue;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 80%;
+}
+
+.sitename {
+    display: block;
+    font-size: 35px;
+    width: 30%;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+#url-area {
+    margin-top: 70px;
+    text-align: center;
+
+}
+
+#url {
+    display: block;
+    width: 400px;
+    height: 40px;
+    margin: 30px auto;
+    font-size: 18px;
+    border: 2px solid black;
+    outline: none;
+}
