@@ -2,10 +2,12 @@
 
 <!DOCTYPE html>
 
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head runat="server">
-    <title>teeny | Shorten your url</title>
+    <title>Teeny | Shorten your url</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -21,8 +23,11 @@
 
         <div id="url-area">
             <p>Enter your URL here to retrieve the shorten version</p>
-            <input id="url" type="text" />
-            <asp:Button ID="Button1" runat="server" Text="Shorten" />
+            
+            <asp:TextBox ID="Texturl" runat="server" OnTextChanged="Texturl_TextChanged"></asp:TextBox>
+            <asp:Button ID="Button" runat="server" Text="Shorten" OnClick="Button_Click" />
+            <asp:Label ID="Label1" runat="server" Text="Label1" ></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Label2"></asp:Label>
         </div>
 
     </form>
