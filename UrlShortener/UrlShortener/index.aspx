@@ -27,7 +27,7 @@
             <asp:TextBox ID="Texturl" runat="server" OnTextChanged="Texturl_TextChanged"></asp:TextBox>
             <asp:Button ID="Button" runat="server" Text="Shorten" OnClick="Button_Click" />
             <asp:Label ID="Label1" runat="server" Text="Label1" ></asp:Label>
-            <asp:Label ID="Label2" runat="server" Text="Label2"></asp:Label>
+       
         </div>
 
     </form>

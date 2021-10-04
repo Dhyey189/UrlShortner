@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 using UrlShortener.Models;
+using System.Text.RegularExpressions;
+
 namespace UrlShortener
 {
     public partial class index : System.Web.UI.Page
@@ -14,26 +16,46 @@ namespace UrlShortener
         {
             string url = HttpContext.Current.Request.Url.AbsoluteUri;
             string path = HttpContext.Current.Request.Url.AbsolutePath;
-            string host = HttpContext.Current.Request.Url.Host;
-            Label2.Text = path.Substring(path.Length - 6);
-            if (Label2.Text != "x.aspx" && Label2.Text != ".aspx/")
-            {
+            string Scheme = HttpContext.Current.Request.Url.Scheme;
+            string code = path.Substring(path.Length - 6);
 
-                Response.Redirect("https://www.google.com");
+            
+            if (code != "x.aspx" && code != ".aspx/")
+            {
+                urlshortnercontext db = new urlshortnercontext();
+                urldata data = db.urldata.Where(s => s.shorturl == code).FirstOrDefault<urldata>();
+                if (data != null)
+                    Response.Redirect(data.originalurl);
+                else Response.Redirect("https://localhost:44379/index.aspx/");
             }
-            else Label2.Text = "Hello";
         }
-          
+
         protected void Button_Click(object sender, EventArgs e)
         {
             string randomstring = RandomString(6);
-            Label1.Text = randomstring;
+            Label1.Text = "https://localhost:44379/index.aspx/"+randomstring;
             urlshortnercontext db = new urlshortnercontext();
             urldata data = new urldata();
-            data.originalurl = Texturl.Text;
-            data.shorturl = randomstring;
-            db.urldata.Add(data);
-            db.SaveChanges();
+            string str = Texturl.Text.Substring(0,4);
+            if(str!="http")
+            {
+                Texturl.Text = "http://" + Texturl.Text; 
+            }
+            var regex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)");
+            if (regex.Match(Texturl.Text).Success)
+            {
+                data.originalurl = Texturl.Text;
+                data.shorturl = randomstring;
+                db.urldata.Add(data);
+                db.SaveChanges();
+            }
+            else
+            Label1.Text = "Not valid Url";
+        }
+        public bool IsValidUri(string uri)
+        {
+            Uri validatedUri;
+            return Uri.TryCreate(uri, UriKind.RelativeOrAbsolute, out validatedUri);
         }
         string RandomString(int length, string allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         {
