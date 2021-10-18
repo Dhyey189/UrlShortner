@@ -6,7 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 using UrlShortener.Models;
+using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace UrlShortener
 {
@@ -28,10 +30,13 @@ namespace UrlShortener
                     Response.Redirect(data.originalurl);
                 else Response.Redirect("https://localhost:44379/index.aspx/");
             }
+
+            Copy.Visible = false;
         }
 
         protected void Button_Click(object sender, EventArgs e)
         {
+            Copy.Visible = false;
             string randomstring = RandomString(6);
             Label1.Text = "https://localhost:44379/index.aspx/"+randomstring;
             urlshortnercontext db = new urlshortnercontext();
@@ -48,9 +53,14 @@ namespace UrlShortener
                 data.shorturl = randomstring;
                 db.urldata.Add(data);
                 db.SaveChanges();
+                Copy.Visible = true;
             }
+
             else
-            Label1.Text = "Not valid Url";
+            {
+                Copy.Visible = false;
+                Label1.Text = "Not valid Url";
+            }
         }
         public bool IsValidUri(string uri)
         {
@@ -94,6 +104,24 @@ namespace UrlShortener
         protected void Texturl_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private static string _Val;
+        public static string Val
+        {
+            get { return _Val; }
+            set { _Val = value; }
+        }
+        protected void Copy_Click(object sender, EventArgs e)
+        {
+            Val = Label1.Text;
+            Thread staThread = new Thread(new ThreadStart(myMethod));
+            staThread.ApartmentState = ApartmentState.STA;
+            staThread.Start();
+        }
+        public static void myMethod()
+        {
+            Clipboard.SetText(Val);
         }
     }
 }
