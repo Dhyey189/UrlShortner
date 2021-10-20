@@ -1,0 +1,67 @@
+﻿* {
+    margin: 0;
+}
+
+header {
+    background-color: black;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 80%;
+}
+
+.sitename {
+    display: block;
+    font-size: 35px;
+    width: 30%;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+#url-area {
+    margin: 70px auto;
+    font-size: 30px;
+    text-align: center;
+    padding: 50px;
+    border-radius: 10px;
+    background-color: rgb(207, 223, 236);
+    align-items: center;
+    width: 80%;
+}
+
+.url {
+    display: block;
+    width: 80%;
+    height: 40px;
+    margin: 30px auto;
+    border-radius: 5px;
+    font-size: 22px;
+    border: 2px solid black;
+    outline: none;
+}
+
+.short-url {
+    margin: 20px;
+}
+
+.btn {
+    display: block;
+    margin: auto;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.result-area {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
